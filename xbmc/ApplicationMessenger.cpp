@@ -274,7 +274,11 @@ void CApplicationMessenger::ProcessMessage(ThreadMessage *pMsg)
     case TMSG_MEDIA_RESTART:
       g_application.Restart(true);
       break;
-
+		  
+	case TMSG_HIBERNATE:
+	  g_application.Hibernate();
+	  break;
+		  
     case TMSG_PICTURE_SHOW:
       {
         CGUIWindowSlideShow *pSlideShow = (CGUIWindowSlideShow *)m_gWindowManager.GetWindow(WINDOW_SLIDESHOW);
@@ -635,6 +639,12 @@ void CApplicationMessenger::RestartApp()
 {
   ThreadMessage tMsg = {TMSG_RESTARTAPP};
   SendMessage(tMsg);
+}
+
+void CApplicationMessenger::Hibernate()
+{
+	ThreadMessage tMsg = {TMSG_HIBERNATE};
+	SendMessage(tMsg);
 }
 
 void CApplicationMessenger::RebootToDashBoard()

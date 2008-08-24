@@ -59,7 +59,7 @@
 #include "Credits.h"
 #endif
 #include "Shortcut.h"
-#include "PlayListPlayer.h"
+#include "PlayList.h"
 #include "PartyModeManager.h"
 #ifdef HAS_VIDEO_PLAYBACK
 #include "cores/VideoRenderers/RenderManager.h"
@@ -3552,6 +3552,7 @@ const BUILT_IN commands[] = {
   { "Reboot",                     false,  "Reboot the xbox (power cycle)" },
   { "Restart",                    false,  "Restart the xbox (power cycle)" },
   { "ShutDown",                   false,  "Shutdown the xbox" },
+  { "Hibernate",                  false,  "Go to standby mode"},
   { "Dashboard",                  false,  "Run your dashboard" },
   { "RestartApp",                 false,  "Restart XBMC" },
   { "Credits",                    false,  "Run XBMCs Credits" },
@@ -3673,6 +3674,12 @@ int CUtil::ExecBuiltIn(const CStdString& execString)
   else if (execute.Equals("shutdown"))
   {
     g_application.getApplicationMessenger().Shutdown();
+  }
+  else if (execute.Equals("hibernate"))
+  {
+#ifdef __APPLE__
+	g_application.getApplicationMessenger().Hibernate();
+#endif
   }
   else if (execute.Equals("dashboard"))
   {

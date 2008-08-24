@@ -89,6 +89,7 @@ typedef struct {
 #define XBMC_MEDIA_STOP		14
 #define XBMC_MEDIA_PAUSE	15
 #define XBMC_PICTURE_SHOW	16
+#define XBMC_HIBERNATE      17
 
 //navigator states
 #define WEB_NAV_PROGRAMS 1

@@ -165,6 +165,8 @@ public:
   virtual void Process();
   void ProcessSlow();
   void ResetScreenSaver();
+  void Hibernate();
+
   int GetVolume() const;
   void SetVolume(int iPercent);
   void Mute(void);

@@ -5589,13 +5589,9 @@ void CApplication::CheckShutdown()
       if (bShutDown)
       {
 #ifdef __APPLE__
-        // Since it is a sleep instead of a shutdown, let's set everything to reset when we wake up.
-        bShutDown = false;
-        m_dwSaverTick = timeGetTime();
-        m_bInactive = false;
-
-        // Sleep the box
-        Cocoa_SleepSystem();
+        // For apple its a sleep not a shutdown.
+		bShutDown = false;
+	    m_applicationMessenger.Hibernate();
 #else
         m_applicationMessenger.Shutdown(); // Turn off the box
 #endif
@@ -5607,6 +5603,16 @@ void CApplication::CheckShutdown()
 #endif
 }
 
+void CApplication::Hibernate() 
+{
+  // Set everything to reset when we wake up
+  m_dwSaverTick = timeGetTime();
+  m_bInactive = false;
+
+#ifdef __APPLE__
+  Cocoa_SleepSystem();
+#endif
+}
 
 void CApplication::CheckDisplaySleep()
 {
