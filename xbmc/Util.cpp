@@ -59,7 +59,7 @@
 #include "Credits.h"
 #endif
 #include "Shortcut.h"
-#include "PlayList.h"
+#include "PlayListPlayer.h"
 #include "PartyModeManager.h"
 #ifdef HAS_VIDEO_PLAYBACK
 #include "cores/VideoRenderers/RenderManager.h"
