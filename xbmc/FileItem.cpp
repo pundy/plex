@@ -191,10 +191,13 @@ CFileItem::CFileItem(const CStdString& strPath, bool bIsFolder)
   Reset();
   m_strPath = _P(strPath);
   m_bIsFolder = bIsFolder;
+
 #ifdef DEBUG
   // tuxbox urls cannot have a / at end
   if (m_bIsFolder && !m_strPath.IsEmpty() && !IsFileFolder() && !CUtil::IsTuxBox(m_strPath))
-    ASSERT(CUtil::HasSlashAtEnd(m_strPath));
+    if (CUtil::HasSlashAtEnd(m_strPath) == false)
+      CLog::Log(LOGWARNING, "No slash at end of (%s)", m_strPath.c_str());
+    //ASSERT(CUtil::HasSlashAtEnd(m_strPath));
 #endif
 
   if (m_bIsFolder)

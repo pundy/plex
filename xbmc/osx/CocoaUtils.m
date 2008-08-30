@@ -193,6 +193,18 @@ void* Cocoa_GL_ResizeWindow(void *theContext, int w, int h)
   //
   if (windowedView != 0)
   {
+    // First, resize that view, though.
+    if (view)
+    {
+       window = [view window];
+
+      [window setContentSize:NSMakeSize(w, h)];
+      [window update];
+      [view setFrameSize:NSMakeSize(w, h)];
+      [context update];
+      [window center];
+    }
+  
     view = windowedView;
     window = [view window];
   }
