@@ -147,6 +147,7 @@ public:
   bool IsPlayingAudio() const ;
   bool IsPlayingVideo() const ;
   bool IsPlayingFullScreenVideo() const ;
+  bool IsStartingPlayback() const { return m_bPlaybackStarting; }
   bool OnKey(CKey& key);
   bool OnAction(const CAction &action);
   void RenderMemoryStatus();
@@ -165,7 +166,7 @@ public:
   virtual void Process();
   void ProcessSlow();
   void ResetScreenSaver();
-  void Hibernate();
+  void SleepSystem();
 
   int GetVolume() const;
   void SetVolume(int iPercent);
@@ -223,6 +224,8 @@ public:
 
   DWORD m_dwSkinTime;
   bool m_bIsPaused;
+  bool m_bPlaybackStarting;
+  std::queue<CGUIMessage> m_vPlaybackStarting;
 
   CCdgParser* m_pCdgParser;
 
@@ -263,7 +266,7 @@ protected:
   CStopWatch m_navigationTimer;
   CStopWatch m_slowTimer;
 
-  CFileItem* m_itemCurrentFile;
+  CFileItemPtr m_itemCurrentFile;
   CFileItemList* m_currentStack;
   CStdString m_prevMedia;
   CSplash* m_splash;

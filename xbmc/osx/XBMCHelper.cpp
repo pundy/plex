@@ -197,7 +197,7 @@ void XBMCHelper::Configure()
 
     // Secure input.
     char strSecure[64];
-    sprintf(strDelay, "--secureInput %d ", m_secureInput ? 1 : 0);
+    sprintf(strSecure, "--secureInput %d ", m_secureInput ? 1 : 0);
     strConfig += strSecure;
     
     // Find out where we're running from.

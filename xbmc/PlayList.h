@@ -24,7 +24,7 @@
 
 namespace PLAYLIST
 {
-  class CPlayListItem : public CFileItem
+/*  class CPlayListItem : public CFileItem
   {
   public:
     CPlayListItem();
@@ -61,7 +61,7 @@ namespace PLAYLIST
   protected:
     long m_lDuration;
     bool m_bUnPlayable;
-  };
+  };*/
 
 class CPlayList
 {
@@ -73,16 +73,15 @@ public:
   virtual bool LoadData(const CStdString& strData);
   virtual void Save(const CStdString& strFileName) const {};
 
-  void Add(CPlayListItem& item);
   void Add(CPlayList& playlist);
-  void Add(CFileItem *pItem);
+  void Add(const CFileItemPtr &pItem);
   void Add(CFileItemList& items);
 
   // for Party Mode
   void Insert(CPlayList& playlist, int iPosition = -1);
   void Insert(CFileItemList& items, int iPosition = -1);
 
-  int FindOrder(int iOrder);
+  int FindOrder(int iOrder) const;
   const CStdString& GetName() const;
   void Remove(const CStdString& strFileName);
   void Remove(int position);
@@ -92,19 +91,18 @@ public:
   int size() const;
   int RemoveDVDItems();
 
-  const CPlayListItem& operator[] (int iItem) const;
-  CPlayListItem& operator[] (int iItem);
+  const CFileItemPtr operator[] (int iItem) const;
+  CFileItemPtr operator[] (int iItem);
 
-  // why are these virtual functions? there is no derived child class
   void Shuffle(int iPosition = 0);
   void UnShuffle();
-  bool IsShuffled() { return m_bShuffled; }
+  bool IsShuffled() const { return m_bShuffled; }
 
   void SetPlayed(bool bPlayed) { m_bWasPlayed = true; };
-  bool WasPlayed() { return m_bWasPlayed; };
+  bool WasPlayed() const { return m_bWasPlayed; };
 
   void SetUnPlayable(int iItem);
-  int GetPlayable() { return m_iPlayableItems; };
+  int GetPlayable() const { return m_iPlayableItems; };
 
   void UpdateItem(const CFileItem *item);
 
@@ -114,11 +112,13 @@ protected:
   int m_iPlayableItems;
   bool m_bShuffled;
   bool m_bWasPlayed;
-  std::vector <CPlayListItem> m_vecItems;
-  typedef std::vector <CPlayListItem>::iterator ivecItems;
+
+//  CFileItemList m_vecItems;
+  std::vector <CFileItemPtr> m_vecItems;
+  typedef std::vector <CFileItemPtr>::iterator ivecItems;
 
 private:
-  void Add(CPlayListItem& item, int iPosition, int iOrderOffset);
+  void Add(const CFileItemPtr& item, int iPosition, int iOrderOffset);
   void DecrementOrder(int iOrder);
   void IncrementOrder(int iPosition, int iOrder);
 };
